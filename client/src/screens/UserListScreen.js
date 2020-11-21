@@ -28,6 +28,10 @@ const UserListScreen = ({ history }) => {
     }
   }, [dispatch, history, successDelete, userInfo])
 
+  // setTimeout(() => {
+  //   dispatch(listUsers())
+  // }, 1000)
+
   const deleteHandler = (id) => {
     if (window.confirm(`Are you sure you want to delete User id: ${id}`)) {
       dispatch(deleteUser(id))
