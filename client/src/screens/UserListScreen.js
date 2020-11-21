@@ -19,10 +19,10 @@ const UserListScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      console.log('getting list of users.')
-      console.log('before', users)
+      // console.log('getting list of users.')
+      // console.log('before', users)
       dispatch(listUsers())
-      console.log('after', users)
+      // console.log('after', users)
     } else {
       history.push('/login')
     }
