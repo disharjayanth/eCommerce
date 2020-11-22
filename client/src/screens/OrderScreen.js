@@ -10,6 +10,7 @@ import { deliverOrder, getOrderDetails, payOrder } from '../actions/orderAction'
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
+  ORDER_DETAILS_RESET,
 } from '../constants/orderConstants'
 
 const OrderScreen = ({ match, history }) => {
@@ -57,7 +58,9 @@ const OrderScreen = ({ match, history }) => {
       document.body.appendChild(script)
     }
 
-    if (!order || successDeliver || successPay) {
+    if (!order || successDeliver || successPay || orderId !== order._id) {
+      // Or prev page details will be shown if not resetted.
+      dispatch({ type: ORDER_DETAILS_RESET })
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
@@ -68,7 +71,7 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true)
       }
     }
-  }, [order, dispatch, orderId, successPay, successDeliver])
+  }, [order, dispatch, orderId, successPay, successDeliver, userInfo, history])
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
