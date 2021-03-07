@@ -6,11 +6,15 @@ import {
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
 } from '../controllers/productController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 // Get all products
 router.route('/').get(getProducts).post(protect, admin, createProduct)
+
+// Create new review for given product
+router.route('/:id/reviews').post(protect, createProductReview)
 
 // Fetch a single product GET '/api/products/:id' PUBLIC
 router
