@@ -6,14 +6,17 @@ import Loading from '../components/Loader'
 import Message from '../components/Message'
 import { listProducts } from '../actions/productActions'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  // search keyword from searchbox will be in match.keyword since its in link
+  const keyword = match.params.keyword
+
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
   const { products, loading, error } = productList
 
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(keyword))
+  }, [dispatch, keyword])
 
   return (
     <>
