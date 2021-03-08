@@ -5,6 +5,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 import {
   listProductDetails,
   createProductReview,
@@ -65,6 +66,11 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          <Meta
+            title={product.name}
+            description={product.description}
+            keywords={product.name}
+          />
           <Row>
             <Col md={6}>
               <Image
@@ -81,7 +87,7 @@ const ProductScreen = ({ history, match }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Rating
-                    value={product.rating}
+                    value={Number(product.rating)}
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroup.Item>
@@ -193,7 +199,10 @@ const ProductScreen = ({ history, match }) => {
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
+                    <Rating
+                      value={review.rating}
+                      text={review.rating.toString()}
+                    />
                     <p>{review.createdAt.substr(0, 10)}</p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
