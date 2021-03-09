@@ -153,7 +153,8 @@ const ProductScreen = ({ history, match }) => {
           <Row>
             <Col md={6}>
               <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message>No reviews</Message>}
+              {product.reviews === undefined ||
+                (product.reviews.length === 0 && <Message>No reviews</Message>)}
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h2>Write a Customer Review</h2>
@@ -196,17 +197,18 @@ const ProductScreen = ({ history, match }) => {
                     </Message>
                   )}
                 </ListGroup.Item>
-                {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating
-                      value={review.rating}
-                      text={review.rating.toString()}
-                    />
-                    <p>{review.createdAt.substr(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
+                {product.reviews &&
+                  product.reviews.map((review) => (
+                    <ListGroup.Item key={review._id}>
+                      <strong>{review.name}</strong>
+                      <Rating
+                        value={review.rating}
+                        text={review.rating.toString()}
+                      />
+                      <p>{review.createdAt.substr(0, 10)}</p>
+                      <p>{review.comment}</p>
+                    </ListGroup.Item>
+                  ))}
               </ListGroup>
             </Col>
           </Row>
